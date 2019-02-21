@@ -20,16 +20,18 @@ namespace agendaAPI.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public string GetTodos()
         {
             return _Service.ObterTodosContatos();
         }
 
         [HttpPost]
-        public void AdicionarContato([FromBody] string json)
+        [Route("[action]")]
+        public string AdicionarContato([FromBody] string json)
         {
-            Contato obj = (Contato)JsonConvert.DeserializeObject(json);
-            _Service.AdicionarContato(obj);
+            Contato contato = (Contato)JsonConvert.DeserializeObject(json);
+            return _Service.AdicionarContato(contato);
         }
     }
 }
