@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using agendaAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace agendaAPI.Controllers
 {
@@ -20,32 +21,14 @@ namespace agendaAPI.Controllers
         [HttpGet]
         public string GetTodos()
         {
-            return _Service.GetTodosContatos();
+            return _Service.ObterTodosContatos();
         }
-
-
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void AdicionarContato([FromBody] string json)
         {
-        }
-
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            Contato obj = (Contato)JsonConvert.DeserializeObject(json);
+            _Service.AdicionarContato(obj);
         }
     }
 }
