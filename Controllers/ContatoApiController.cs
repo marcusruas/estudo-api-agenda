@@ -6,6 +6,8 @@ using agendaAPI.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace agendaAPI.Controllers
 {
@@ -28,10 +30,9 @@ namespace agendaAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public string AdicionarContato([FromBody] string json)
+        public string AdicionarContato([FromBody] Contato json)
         {
-            Contato contato = (Contato)JsonConvert.DeserializeObject(json);
-            return _Service.AdicionarContato(contato);
+            return _Service.AdicionarContato(json);
         }
     }
 }

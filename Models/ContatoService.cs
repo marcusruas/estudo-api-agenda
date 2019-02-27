@@ -18,6 +18,7 @@ namespace agendaAPI.Models
 
         public string AdicionarContato(Contato contato){
             _Context.Contato.Add(contato);
+            _Context.SaveChanges();
             return ContatoPorId(contato.Idcontato);
         }
 
