@@ -22,6 +22,12 @@ namespace agendaAPI.Models
             return ContatoPorId(contato.Idcontato);
         }
 
+        public string RemoverContato(Contato contato){
+            _Context.Contato.Remove(contato);
+            _Context.SaveChanges();
+            return ObterTodosContatos();
+        }
+
         private string ContatoPorId(int id){
             var retorno = _Context.Contato.Where(ctr => ctr.Idcontato == id);
             return JsonConvert.SerializeObject(retorno.FirstOrDefault());

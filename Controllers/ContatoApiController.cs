@@ -34,5 +34,12 @@ namespace agendaAPI.Controllers
         {
             return _Service.AdicionarContato(json);
         }
+
+        [HttpDelete]
+        [Route("[action]")]
+        public string RemoverContato([FromBody] Contato json)
+        {
+            return _Service.RemoverContato(json);
+        }
     }
 }
