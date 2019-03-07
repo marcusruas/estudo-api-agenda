@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Data;
 using System.Linq;
 
 namespace agendaAPI.Models
@@ -23,9 +25,21 @@ namespace agendaAPI.Models
         }
 
         public string RemoverContato(Contato contato){
-            _Context.Contato.Remove(contato);
-            _Context.SaveChanges();
-            return ObterTodosContatos();
+            bool rtn;
+            object retorno;
+            try{
+                _Context.Contato.Remove(contato);
+                _Context.SaveChanges();
+                rtn = true;
+            }catch(DbUpdateException){
+                rtn = false;
+            }
+
+            retorno = new {
+                resultado = rtn
+            };
+            
+            return JsonConvert.SerializeObject(retorno);
         }
 
         private string ContatoPorId(int id){
