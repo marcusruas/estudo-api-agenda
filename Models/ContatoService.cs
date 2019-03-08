@@ -14,7 +14,7 @@ namespace agendaAPI.Models
         }
         
         public string ObterTodosContatos(){
-            var retorno = _Context.Contato.Where(ctr => !ctr.Nome.Equals(""));
+            var retorno = from contato in _Context.Contato select contato;
             return JsonConvert.SerializeObject(retorno);
         }
 
@@ -29,6 +29,24 @@ namespace agendaAPI.Models
             object retorno;
             try{
                 _Context.Contato.Remove(contato);
+                _Context.SaveChanges();
+                rtn = true;
+            }catch(DbUpdateException){
+                rtn = false;
+            }
+
+            retorno = new {
+                resultado = rtn
+            };
+            
+            return JsonConvert.SerializeObject(retorno);
+        }
+
+        public string AtualizarContato(Contato contato){
+            bool rtn;
+            object retorno;
+            try{
+                _Context.Contato.Update(contato);
                 _Context.SaveChanges();
                 rtn = true;
             }catch(DbUpdateException){

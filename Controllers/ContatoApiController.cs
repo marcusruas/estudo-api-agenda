@@ -41,5 +41,12 @@ namespace agendaAPI.Controllers
         {
             return _Service.RemoverContato(json);
         }
+
+        [HttpPut]
+        [Route("[action]")]
+        public string AtualizarContato([FromBody] Contato json)
+        {
+            return _Service.AtualizarContato(json);
+        }
     }
 }
